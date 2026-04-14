@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login — Barrel QC System</title>
+  <style>
+    body { font-family: sans-serif; max-width: 400px; margin: 100px auto; padding: 0 16px; }
+    h1 { font-size: 20px; margin-bottom: 24px; text-align: center; }
+    .login-container {
+      border: 1px solid #e5e7eb;
+      padding: 24px;
+      border-radius: 8px;
+      background: #fff;
+    }
+    label { display: block; margin-bottom: 16px; font-size: 14px; }
+    label span { display: block; margin-bottom: 4px; font-weight: 600; }
+    input {
+      width: 100%; padding: 8px; font-size: 14px;
+      border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+    }
+    button {
+      width: 100%; padding: 10px; font-size: 14px; cursor: pointer;
+      background: #2563eb; color: #fff; border: none; border-radius: 4px;
+      margin-top: 8px;
+    }
+    button:hover { background: #1d4ed8; }
+    #error { color: #dc2626; font-size: 13px; margin-top: 12px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h1>Login</h1>
+    
+    <label>
+      <span>Username</span>
+      <input type="text" id="username" placeholder="Enter username" />
+    </label>
+    
+    <label>
+      <span>Password</span>
+      <input type="password" id="password" placeholder="Enter password" />
+    </label>
+
+    <button onclick="handleLogin()">Sign In</button>
+    <div id="error"></div>
+  </div>
+
+  <script>
+    function handleLogin() {
+      const user = document.getElementById("username").value.toLowerCase();
+      const pass = document.getElementById("password").value;
+      const error = document.getElementById("error");
+
+      // Logic for redirection
+      if (user === "manager" && pass === "manager") {
+        window.location.href = "manager.html";
+      } 
+      else if (user === "qc" && pass === "qc") {
+        window.location.href = "qc.html";
+      } 
+      else if (user === "worker" && pass === "worker") {
+        window.location.href = "worker.html";
+      } 
+      else {
+        error.textContent = "Invalid username or password.";
+      }
+    }
+
+    // Allow "Enter" key to trigger login
+    document.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        handleLogin();
+      }
+    });
+  </script>
+</body>
+</html>
