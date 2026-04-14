@@ -36,7 +36,7 @@
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
-  </table>
+   </table>
   <div id="empty" style="display:none;">No pending instructions.</div>
 
   <script>
@@ -52,16 +52,27 @@
 
       rows.forEach((r) => {
         const tr = document.createElement("tr");
+        const approveBtn = document.createElement("button");
+        approveBtn.className = "btn-approve";
+        approveBtn.textContent = "Approve";
+        approveBtn.addEventListener("click", () => updateStatus(r._id, 'approved'));
+        
+        const rejectBtn = document.createElement("button");
+        rejectBtn.className = "btn-reject";
+        rejectBtn.textContent = "Reject";
+        rejectBtn.addEventListener("click", () => updateStatus(r._id, 'rejected'));
+        
+        const actionsCell = document.createElement("td");
+        actionsCell.appendChild(approveBtn);
+        actionsCell.appendChild(rejectBtn);
+        
         tr.innerHTML = `
           <td>${r.barrelId}</td>
           <td>${r.testResult}</td>
           <td>${r.instruction}</td>
           <td>${new Date(r.createdAt).toLocaleString()}</td>
-          <td>
-            <button class="btn-approve" onclick="updateStatus('${r._id}', 'approved')">Approve</button>
-            <button class="btn-reject" onclick="updateStatus('${r._id}', 'rejected')">Reject</button>
-          </td>
         `;
+        tr.appendChild(actionsCell);
         tbody.appendChild(tr);
       });
     }

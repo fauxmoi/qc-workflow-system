@@ -35,11 +35,11 @@
   </label>
   <label><span>Instruction</span><textarea id="instruction" placeholder="Describe what needs to be done..."></textarea></label>
 
-  <button onclick="submit()">Submit</button>
+  <button id="submitBtn">Submit</button>
   <div id="msg"></div>
 
   <script>
-    async function submit() {
+    async function submitInstruction() {
       const barrelId = document.getElementById("barrelId").value.trim();
       const testResult = document.getElementById("testResult").value;
       const instruction = document.getElementById("instruction").value.trim();
@@ -65,6 +65,14 @@
         msg.textContent = "Error submitting.";
       }
     }
+
+    // Add event listener instead of inline onclick
+    document.addEventListener("DOMContentLoaded", function() {
+      const submitBtn = document.getElementById("submitBtn");
+      if (submitBtn) {
+        submitBtn.addEventListener("click", submitInstruction);
+      }
+    });
   </script>
 </body>
 </html>

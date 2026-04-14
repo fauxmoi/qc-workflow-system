@@ -33,7 +33,7 @@
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
-  </table>
+   </table>
   <div id="empty" style="display:none;">No approved instructions.</div>
 
   <script>
@@ -49,15 +49,20 @@
 
       rows.forEach((r) => {
         const tr = document.createElement("tr");
+        const doneBtn = document.createElement("button");
+        doneBtn.textContent = "Mark as Done";
+        doneBtn.addEventListener("click", () => markDone(r._id));
+        
+        const actionsCell = document.createElement("td");
+        actionsCell.appendChild(doneBtn);
+        
         tr.innerHTML = `
           <td>${r.barrelId}</td>
           <td>${r.testResult}</td>
           <td>${r.instruction}</td>
           <td>${new Date(r.updatedAt || r.createdAt).toLocaleString()}</td>
-          <td>
-            <button onclick="markDone('${r._id}')">Mark as Done</button>
-          </td>
         `;
+        tr.appendChild(actionsCell);
         tbody.appendChild(tr);
       });
     }

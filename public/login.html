@@ -47,9 +47,11 @@
              autocomplete="current-password" />
     </label>
 
-    <button id="loginBtn" onclick="handleLogin()">Sign In</button>
+    <button id="loginBtn">Sign In</button>
     <div id="error" role="alert" aria-live="polite"></div>
   </div>
+
+  <form id="hiddenForm" style="display: none;"></form>
 
   <script>
     const ROLE_ROUTES = {
@@ -115,8 +117,16 @@
       }
     }
 
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Enter") handleLogin();
+    // Add event listeners instead of inline handlers
+    document.addEventListener("DOMContentLoaded", function() {
+      const loginBtn = document.getElementById("loginBtn");
+      if (loginBtn) {
+        loginBtn.addEventListener("click", handleLogin);
+      }
+      
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") handleLogin();
+      });
     });
   </script>
 </body>
